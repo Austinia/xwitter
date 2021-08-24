@@ -8,10 +8,10 @@ const XweetFactory = ({ userObj }) => {
   const [xweet, setXweet] = useState("");
   const [attachment, setAttachment] = useState("");
   const onSubmit = async (event) => {
+    event.preventDefault();
     if (xweet === "") {
       return;
     }
-    event.preventDefault();
     let attachmentURL = "";
     if (attachment !== "") {
       const attachment = storageService;
@@ -47,7 +47,9 @@ const XweetFactory = ({ userObj }) => {
       } = finishedEvent;
       setAttachment(result);
     };
-    reader.readAsDataURL(theFile);
+    if (Boolean(theFile)) {
+      reader.readAsDataURL(theFile);
+    }
   };
   const onClearAttachmentClick = () => setAttachment("");
   return (
