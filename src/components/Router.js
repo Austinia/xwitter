@@ -2,23 +2,32 @@ import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Auth from "routes/Auth";
 import Home from "routes/Home";
-import Navigation from "components/Navigation"
+import Navigation from "components/Navigation";
 import Profile from "routes/Profile";
 // <> </> 프래그먼트 부모 요소가 없을때 많은 요소를 랜더 하고 싶을때 사용
-const Routers = ({isLoggedIn}) => {
+const Routers = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Switch>
         {isLoggedIn ? (
-          <>
+          <div
+            style={{
+              maxWidth: 890,
+              width: "100%",
+              margin: "0 auto",
+              marginTop: 80,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Route exact path="/">
-              <Home />
+              <Home userObj={userObj} />
             </Route>
             <Route exact path="/Profile">
-              <Profile />
+              <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>
-          </>
+          </div>
         ) : (
           <Route exact path="/">
             <Auth />
