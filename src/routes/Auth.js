@@ -19,7 +19,7 @@ const Auth = () => {
     } else if (name === "twitter") {
       provider = new firebaseInstance.auth.TwitterAuthProvider();
     }
-    const data = await authService.signInWithPopup(provider);
+    await authService.signInWithPopup(provider);
   };
   return (
     <div className="authContainer">

@@ -8,25 +8,26 @@ function App() {
   const [userObj, setuserObj] = useState(null);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if(user){
+      if (user) {
         // setIsLoggedIn(true);
-        if(user.displayName === null){
+        if (user.displayName === null) {
           user.updateProfile({
             displayName: "익명",
-          })
+          });
         }
         setuserObj({
           displayName: user.displayName,
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
-        });} else {
-          setuserObj(null);
-        }
+        });
+      } else {
+        setuserObj(null);
+      }
       // } else {
       //   setIsLoggedIn(false);
       // }
       setInit(true);
-    })
+    });
   }, []);
   const refreshUser = () => {
     const user = authService.currentUser;
@@ -35,11 +36,18 @@ function App() {
       uid: user.uid,
       updateProfile: (args) => user.updateProfile(args),
     });
-  }
+  };
   return (
     <>
-      {Init ? <Routers refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj} /> : "초기화중입니다..."}
-      {/* <footer className="footer">&copy; Xwitter {new Date().getFullYear()}</footer> */}
+      {Init ? (
+        <Routers
+          refreshUser={refreshUser}
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+        />
+      ) : (
+        "초기화중입니다..."
+      )}
     </>
   );
 }

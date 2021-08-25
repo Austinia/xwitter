@@ -9,16 +9,16 @@ const Profile = ({ userObj, refreshUser }) => {
     authService.signOut();
     history.push("/");
   };
-  const getMyXweets = async () => {
-    const xweets = await dbService
-      .collection("xweets")
-      .where("createrId", "==", userObj.uid)
-      .orderBy("createdAt")
-      .get();
-  };
-  useEffect(() => {
-    getMyXweets();
-  }, []);
+  // const getMyXweets = async () => {
+  //   const xweets = await dbService
+  //     .collection("xweets")
+  //     .where("createrId", "==", userObj.uid)
+  //     .orderBy("createdAt")
+  //     .get();
+  // };
+  // useEffect(() => {
+  //   getMyXweets();
+  // }, []);
   const onChange = (event) => {
     const {
       target: { value },
@@ -55,7 +55,7 @@ const Profile = ({ userObj, refreshUser }) => {
         />
       </form>
       <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
-        Log Out
+        로그아웃
       </span>
     </div>
   );

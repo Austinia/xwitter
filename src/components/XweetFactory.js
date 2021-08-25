@@ -14,7 +14,6 @@ const XweetFactory = ({ userObj }) => {
     }
     let attachmentURL = "";
     if (attachment !== "") {
-      const attachment = storageService;
       const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
       const response = await fileRef.putString(attachment, "data_url");
       attachmentURL = await response.ref.getDownloadURL();
@@ -66,7 +65,7 @@ const XweetFactory = ({ userObj }) => {
         <input type="submit" value="&rarr;" className="factoryInput__arrow" />
       </div>
       <label for="attach-file" className="factoryInput__label">
-        <span>Add photos</span>
+        <span>사진 추가</span>
         <FontAwesomeIcon icon={faPlus} />
       </label>
       <input
