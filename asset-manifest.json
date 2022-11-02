@@ -1,20 +1,13 @@
 {
   "files": {
-    "main.css": "/xwitter/static/css/main.a417c626.chunk.css",
-    "main.js": "/xwitter/static/js/main.974aa575.chunk.js",
-    "main.js.map": "/xwitter/static/js/main.974aa575.chunk.js.map",
-    "runtime-main.js": "/xwitter/static/js/runtime-main.98ad0813.js",
-    "runtime-main.js.map": "/xwitter/static/js/runtime-main.98ad0813.js.map",
-    "static/js/2.1c3e1289.chunk.js": "/xwitter/static/js/2.1c3e1289.chunk.js",
-    "static/js/2.1c3e1289.chunk.js.map": "/xwitter/static/js/2.1c3e1289.chunk.js.map",
+    "main.css": "/xwitter/static/css/main.7ca68190.css",
+    "main.js": "/xwitter/static/js/main.33b1e5ec.js",
     "index.html": "/xwitter/index.html",
-    "static/css/main.a417c626.chunk.css.map": "/xwitter/static/css/main.a417c626.chunk.css.map",
-    "static/js/2.1c3e1289.chunk.js.LICENSE.txt": "/xwitter/static/js/2.1c3e1289.chunk.js.LICENSE.txt"
+    "main.7ca68190.css.map": "/xwitter/static/css/main.7ca68190.css.map",
+    "main.33b1e5ec.js.map": "/xwitter/static/js/main.33b1e5ec.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.98ad0813.js",
-    "static/js/2.1c3e1289.chunk.js",
-    "static/css/main.a417c626.chunk.css",
-    "static/js/main.974aa575.chunk.js"
+    "static/css/main.7ca68190.css",
+    "static/js/main.33b1e5ec.js"
   ]
 }
