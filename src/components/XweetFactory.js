@@ -1,11 +1,18 @@
-import { dbService, storageService } from "Myfirebase";
+import { dbService } from "Myfirebase";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { addDoc, collection } from "firebase/firestore";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadString,
+} from "firebase/storage";
 
 const XweetFactory = ({ userObj }) => {
+  const storage = getStorage();
   const [xweet, setXweet] = useState("");
   const [attachment, setAttachment] = useState("");
   const onSubmit = async (event) => {
@@ -15,9 +22,12 @@ const XweetFactory = ({ userObj }) => {
     }
     let attachmentURL = "";
     if (attachment !== "") {
-      const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-      const response = await fileRef.putString(attachment, "data_url");
-      attachmentURL = await response.ref.getDownloadURL();
+      const fileRef = ref(storage, `${userObj.uid}/${uuidv4()}`);
+      const res = await uploadString(fileRef, attachment, "data_url");
+      console.log(res);
+      attachmentURL = await getDownloadURL(
+        ref(storage, `${userObj.uid}/${uuidv4()}`)
+      );
     }
     const xweetObj = {
       text: xweet,

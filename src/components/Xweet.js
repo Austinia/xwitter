@@ -1,23 +1,26 @@
-import { dbService, storageService } from "Myfirebase";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { deleteObject, getStorage, ref } from "firebase/storage";
+import { dbService } from "Myfirebase";
 
 const Xweet = ({ xweetObj, isOwner }) => {
+  const storage = getStorage();
   const [editing, setEditing] = useState(false);
   const [newXweet, setnewXweet] = useState(xweetObj.text);
   const onDeleteClick = async () => {
     const ok = window.confirm("정말로 지우시겠습니까?");
     if (ok) {
       //delete xweet
-      await dbService.doc(`xweets/${xweetObj.id}`).delete();
-      await storageService.refFromURL(xweetObj.attachmentURL).delete();
+      await deleteDoc(doc(dbService, "xweets", xweetObj.id));
+      await deleteObject(ref(storage, xweetObj.attachmentURL));
     }
   };
   const toggleEditing = () => setEditing((prev) => !prev);
   const onSubmit = async (event) => {
     event.preventDefault();
-    await dbService.doc(`xweets/${xweetObj.id}`).update({
+    await updateDoc(doc(dbService, "xweets", xweetObj.id), {
       text: newXweet,
     });
     setEditing(false);
@@ -44,7 +47,7 @@ const Xweet = ({ xweetObj, isOwner }) => {
                   autoFocus
                   className="formInput"
                 />
-                <input type="submit" value="Update Nweet" className="formBtn" />
+                <input type="submit" value="Update Xweet" className="formBtn" />
               </form>
               <span onClick={toggleEditing} className="formBtn cancelBtn">
                 취소

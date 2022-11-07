@@ -1,4 +1,4 @@
-import { authService, dbService } from "Myfirebase";
+import { getAuth, signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,8 +6,14 @@ const Profile = ({ userObj, refreshUser }) => {
   const navigate = useNavigate();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const onLogOutClick = () => {
-    authService.signOut();
-    navigate("/");
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
   // const getMyXweets = async () => {
   //   const xweets = await dbService
