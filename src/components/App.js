@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Routers from "components/Router";
 import { authService } from "Myfirebase";
+import { updateProfile } from "firebase/auth";
 
 function App() {
   const [Init, setInit] = useState(false);
@@ -11,11 +12,11 @@ function App() {
       if (user) {
         // setIsLoggedIn(true);
         if (user.displayName === null) {
-          user.updateProfile({
+          updateProfile(user, {
             displayName: "익명",
           });
         }
-        setuserObj({
+        setuserObj(user, {
           displayName: user.displayName,
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),

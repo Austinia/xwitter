@@ -1,3 +1,7 @@
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { authService } from "Myfirebase";
 import React, { useState } from "react";
 
@@ -22,16 +26,25 @@ const AuthForm = () => {
       let data;
       if (newAccount) {
         // create account
-        data = await authService.createUserWithEmailAndPassword(
+        data = await createUserWithEmailAndPassword(
+          authService,
           email,
           password
         );
       } else {
         // log in
-        data = await authService.signInWithEmailAndPassword(email, password);
+        data = await signInWithEmailAndPassword(authService, email, password);
       }
     } catch (error) {
-      setError(error.message);
+      if (error.message === "Firebase: Error (auth/user-not-found).") {
+        setError("이메일 혹은 비밀번호가 틀렸습니다.");
+      } else if (
+        error.message === "Firebase: Error (auth/email-already-in-use)."
+      ) {
+        setError("이미 존재하는 이메일입니다.");
+      } else {
+        setError(error.message);
+      }
     }
   };
   const toggleAccount = () => setnewAccount((prev) => !prev);

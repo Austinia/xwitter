@@ -2,23 +2,23 @@ import Xweet from "components/Xweet";
 import { dbService } from "Myfirebase";
 import React, { useEffect, useState } from "react";
 import XweetFactory from "components/XweetFactory";
+import { collection, getDocs } from "firebase/firestore";
 
 const Home = ({ userObj }) => {
   const [xweets, setXweets] = useState([]);
+  const fetchAndSet = async () => {
+    const data = await getDocs(collection(dbService, "xweets"));
+    const snapshot = data.orderBy("createdAt", "desc");
+    const xweetArray = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    //배열을 스테이트에 집어 넣기
+    setXweets(xweetArray);
+  };
   useEffect(() => {
     // 스냅챗을 리스너로 이용, 스냅챗은 데이터베이스의 변화가 생길때마다 알려줌
-    dbService
-      .collection("xweets")
-      .orderBy("createdAt", "desc")
-      .onSnapshot((snapshot) => {
-        //스냅챗이 올때마다 배열 생성
-        const xweetArray = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        //배열을 스테이트에 집어 넣기
-        setXweets(xweetArray);
-      });
+    fetchAndSet();
   }, []);
   // map이 두개의 프롭을 갖는 컴포넌트 Xweet생성 ( xweetObj, isOwner )
   return (

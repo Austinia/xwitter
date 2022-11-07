@@ -1,25 +1,25 @@
 import AuthForm from "components/AuthForm";
-import { authService, firebaseInstance } from "Myfirebase";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
   faGoogle,
-  faGithub,
 } from "@fortawesome/free-brands-svg-icons";
+import { getAuth, GoogleAuthProvider, signInWithPopup, TwitterAuthProvider } from "firebase/auth";
 
 const Auth = () => {
   const onSocialClick = async (event) => {
+    const auth = getAuth();
     const {
       target: { name },
     } = event;
     let provider;
     if (name === "google") {
-      provider = new firebaseInstance.auth.GoogleAuthProvider();
+      provider = new GoogleAuthProvider();
     } else if (name === "twitter") {
-      provider = new firebaseInstance.auth.TwitterAuthProvider();
+      provider = new TwitterAuthProvider();
     }
-    await authService.signInWithPopup(provider);
+    await signInWithPopup(auth, provider);
   };
   return (
     <div className="authContainer">
