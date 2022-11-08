@@ -9,7 +9,7 @@ const Profile = ({ userObj, refreshUser }) => {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        navigate("/");
+        navigate("/xwitter");
       })
       .catch((error) => {
         alert(error.message);

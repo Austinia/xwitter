@@ -9,31 +9,35 @@ const Routers = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
       {isLoggedIn && <Navigation userObj={userObj} />}
-      {isLoggedIn ? (
-        <div
-          style={{
-            maxWidth: 890,
-            width: "100%",
-            margin: "0 auto",
-            marginTop: 80,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Routes>
-            <Route exact path="/" element={<Home userObj={userObj} />}></Route>
-            <Route
-              exact
-              path="/Profile"
-              element={<Profile userObj={userObj} refreshUser={refreshUser} />}
-            ></Route>
-          </Routes>
-        </div>
-      ) : (
+      <div
+        style={{
+          maxWidth: 890,
+          width: "100%",
+          margin: "0 auto",
+          marginTop: 80,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Routes>
-          <Route exact path="/" element={<Auth />}></Route>
+          <Route
+            exact
+            path="/xwitter"
+            element={isLoggedIn ? <Home userObj={userObj} /> : <Auth />}
+          ></Route>
+          <Route
+            exact
+            path="/xwitter/Profile"
+            element={
+              isLoggedIn ? (
+                <Profile userObj={userObj} refreshUser={refreshUser} />
+              ) : (
+                <></>
+              )
+            }
+          ></Route>
         </Routes>
-      )}
+      </div>
     </Router>
   );
 };
