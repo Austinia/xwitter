@@ -75,7 +75,7 @@ const XweetFactory = ({ userObj }) => {
         />
         <input type="submit" value="&rarr;" className="factoryInput__arrow" />
       </div>
-      <label htmlFor="attach-file" className="factoryInput__label">
+      {/* <label htmlFor="attach-file" className="factoryInput__label">
         <span>사진 추가</span>
         <FontAwesomeIcon icon={faPlus} />
       </label>
@@ -87,7 +87,7 @@ const XweetFactory = ({ userObj }) => {
         style={{
           opacity: 0,
         }}
-      />
+      /> */}
       {attachment && (
         <div className="factoryForm__attachment">
           <img
